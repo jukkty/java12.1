@@ -29,6 +29,9 @@ public class ProductRepository {
     }
 
     public void removeById(int id) {
+        if (findById(id) == null) {
+            throw new NotFoundException("Удаление продукта невозможно,так как продукта с id:" + id + " не существует");
+        }
         int length = products.length - 1;
         Product[] tmp = new Product[length];
         int index = 0;
@@ -37,11 +40,7 @@ public class ProductRepository {
                 tmp[index] = product;
                 index++;
             }
-            if (findById(id) == null){
-                throw new NotFoundException("Удаление продукта невозможно,так как продукта с id:" + id + " не существует");
-            }
         }
         products = tmp;
     }
-
 }
